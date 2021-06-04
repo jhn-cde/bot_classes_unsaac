@@ -1,13 +1,15 @@
 import os
+import sys
 from time import sleep
 from datetime import datetime
 from myclasses.urlleader import UrlLeader
 from myclasses.schedule import Schedule
 from myclasses.user import Usuario, Encrp_class
 
-class Unsaac_Classes():
+class Classes_Unsaac():
     def __init__(self):
         self.calendar_url = 'https://calendar.google.com/calendar/'
+        self.meet_url = ''
         self.account = Usuario()
         self.classes = UrlLeader()
         self.my_schedule = Schedule()
@@ -18,10 +20,6 @@ class Unsaac_Classes():
 
     def iniciar(self):
         self.limpiar_terminal()
-        # Saludo
-        print(" Hola {}\n".format(self.account.obtener_usuario()[0]))
-        self.mostrar_fecha()
-        
         # Verificar si horario está actualizado
         if(not self.my_schedule.json_listo()):
             # obtener horarios
@@ -38,7 +36,8 @@ class Unsaac_Classes():
                 return 0
             
             self.cerrar_browser()
-
+            
+        self.limpiar_terminal()
         # imprimir horarios
         self.my_schedule.imprimir_horario()
 
@@ -100,29 +99,42 @@ class Unsaac_Classes():
         if(self.my_schedule.hay_cursos() and (ans == 'yes' or ans == 'y' or ans == 'YES' or ans == 'Y' or ans == ' ' or ans == '')):
             # limpiar terminal
             self.limpiar_terminal()
-            meet_link = self.my_schedule.iniciar_curso()
             if(self.my_schedule.is_active):
-                print("El curso está abierto, quedan {0} minutos para finalizar\n".format(self.my_schedule.tiempo_restante()))
+                print(" El curso está abierto, quedan {0} minutos para finalizar\n".format(self.my_schedule.tiempo_restante()))
+                #self.classes.open_url(meet_link)
             else:
-                print("Falta {0} minutos para iniciar el curso\n".format(self.my_schedule.tiempo_libre()))
+                print(" Falta {0} minutos para iniciar el curso\n".format(self.my_schedule.tiempo_libre()))
+
+            meet_link = self.my_schedule.iniciar_curso()
+                
         
         if(not self.my_schedule.hay_cursos()):
-            print(" \nFelicidades, ya no tiene más cursos\n")
+            print("\n Felicidades, ya no tiene más cursos\n")
             
     def element_found(self, search):
         self.classes.element = None
         self.classes.find_element_by_xpath(search)
         
-    def mostrar_fecha(self):
-        print(" Hoy es: ", self.now.strftime("%d %B %Y - %H:%M:%S"))
-
     def cerrar_browser(self):
         self.classes.close_browser()
+
     def finalizar(self):
-        print(" Adios...")
+        print(" Adios...\n")
 
     def limpiar_terminal(self):
         os.system('cls' if os.name == 'nt' else 'clear')
+        # Saludo
+        print(" Utilize 'python3 main.py nuevo' para cambiar de usuario!")
+        print("\n Hola {}".format(self.account.obtener_usuario()[0]))
+        print(" Hoy es: ", self.now.strftime("%d %B %Y  %H:%M:%S"))
 
 if __name__ == "__main__":
-    johan_clases = Unsaac_Classes()
+    if(len(sys.argv) == 2 and sys.argv[1] == 'nuevo'):
+        try: 
+            os.remove('user.txt')
+            os.remove('horario_de_hoy.txt')
+            print("Cambiando usuario")
+        except FileNotFoundError:
+            print("Nuevo Usuario")
+        
+    mis_horario_de_hoy = Classes_Unsaac()

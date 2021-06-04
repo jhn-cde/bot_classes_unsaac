@@ -5,6 +5,7 @@ class UrlLeader():
         # create a headless browser
         self.option = webdriver.ChromeOptions()
         self.option.binary_location = '/usr/bin/brave-browser-nightly'
+        self.option.add_argument("--start-maximized")
         self.pageurl = ''
         self.browser = None
         self.element = None

@@ -11,7 +11,7 @@ class Schedule():
         self.cursos = None
         self.current = None
         self.is_active = False
-        self.json_file = 'today_schedule.txt'
+        self.json_file = 'horario_de_hoy.txt'
         self.now = datetime.now()
 
     def set_cursos(self, cursos):
@@ -25,7 +25,7 @@ class Schedule():
 
     def iniciar_curso(self):
         curso = self.cursos[self.current]
-        print("\n *** Curso Actual")
+        print("\n *** Siguiente curso")
         print(" {0}".format(curso['curso']))
         print(" {0}".format(curso['hora']))
         print(" {0}".format(curso['meet']))
@@ -47,18 +47,20 @@ class Schedule():
             self.is_active = True
 #        elif(Schedule.get_number(hora_fin) < int(hora_act)):
 #            self.is_active = False
-
         else:
             self.is_active = False
+            if(Schedule.get_number(hora_fin) <= int(hora_act)):
+                self.current += 1
+        
         
     def imprimir_horario(self):
         print("\n  --- Inicio Horarios --- \n")
         i = 0
         for sched in self.cursos:
             if(i == self.current):
-                print("            ***     ****     ***")
-                print("            *** Curso Actual ***")
-                print("            ***     ****     ***")
+                print("            ***       ****      ***")
+                print("            *** Siguiente curso ***")
+                print("            ***       ****      ***")
             print(" Hora: {0}".format(sched['curso']))
             print(" Curso: {0}".format(sched['hora']))
             print(" Fecha: {0}".format(sched['fecha']))
