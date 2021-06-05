@@ -27,7 +27,7 @@ class Encrp_class():
         return strng
 
 def test():
-    text = 'Haydee me gustas un Chingo! :3'
+    text = 'Haydee me gustas un Chingo!'
     enc_text, llave = Encrp_class.encriptar(text)
     desenc_text = Encrp_class.desencriptar(llave, enc_text)
     print('texto: ' + text)
