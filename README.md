@@ -17,3 +17,4 @@ cd bot_classes_unsaac
 # Run the app
 python3 main.py
 ```
+Cualquier cambio o adaptacion con toda confianza, es de libre acceso
