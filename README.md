@@ -7,6 +7,9 @@
  
 ### Modo de Uso
 Creado y utilzado en linux (Ubuntu mate 20.04 LTS)
+Navegador utilizado: Brave
+ - Debe ser cambiado al navegador de preferencia (generalmente chrome)
+Base: chromiun 91.0.44 (chromedriver debe ser cambiado de acuerdo a la version del navegador en uso)
 ```bash
 # Clone this repository
 git clone https://github.com/jhn-cde/bot_classes_unsaac.git
