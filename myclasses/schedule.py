@@ -33,24 +33,25 @@ class Schedule():
         return curso['meet']
 
     def obtener_curso_actual(self):
-        self.current = 0
-        hora_ini = self.cursos[self.current]['hora'].split(' ')[1]
-        hora_act = self.now.strftime('%H')
-        
-        while(self.hay_cursos() and Schedule.get_number(hora_ini) < int(hora_act)):
+        if(len(self.cursos) > 0):
+            self.current = 0
             hora_ini = self.cursos[self.current]['hora'].split(' ')[1]
-            self.current += 1
-        self.current -= 1
-        
-        hora_fin = self.cursos[self.current]['hora'].split(' ')[3]
-        if(Schedule.get_number(hora_fin) > int(hora_act) and Schedule.get_number(hora_ini) <= int(hora_act)):
-            self.is_active = True
-#        elif(Schedule.get_number(hora_fin) < int(hora_act)):
-#            self.is_active = False
-        else:
-            self.is_active = False
-            if(Schedule.get_number(hora_fin) <= int(hora_act)):
+            hora_act = self.now.strftime('%H')
+            
+            while(self.hay_cursos() and Schedule.get_number(hora_ini) < int(hora_act)):
+                hora_ini = self.cursos[self.current]['hora'].split(' ')[1]
                 self.current += 1
+            self.current -= 1
+            
+            hora_fin = self.cursos[self.current]['hora'].split(' ')[3]
+            if(Schedule.get_number(hora_fin) > int(hora_act) and Schedule.get_number(hora_ini) <= int(hora_act)):
+                self.is_active = True
+    #        elif(Schedule.get_number(hora_fin) < int(hora_act)):
+    #            self.is_active = False
+            else:
+                self.is_active = False
+                if(Schedule.get_number(hora_fin) <= int(hora_act)):
+                    self.current += 1
         
         
     def imprimir_horario(self):
@@ -75,6 +76,9 @@ class Schedule():
         try: 
             with open(self.json_file) as f:
                 self.cursos = json.load(f)
+                if(self.cursos == []):
+                    return True
+                
                 actual_day = self.now.strftime('%d %B %Y')
                 json_day = self.cursos[0]['fecha']
                 if(Schedule.compara_fechas(actual_day, json_day)):

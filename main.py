@@ -16,7 +16,7 @@ class Classes_Unsaac():
         self.my_schedule = Schedule()
         self.now = datetime.now()
         self.iniciar()
-        self.procesar_clases()
+        #self.procesar_clases()
         self.finalizar()
 
     def iniciar(self):
@@ -42,6 +42,10 @@ class Classes_Unsaac():
         self.limpiar_terminal()
         # imprimir horarios
         self.my_schedule.imprimir_horario()
+        if(self.my_schedule.current == None):
+            print('Felicidades hoy no tiene cursos')
+        else:
+            self.procesar_clases()
 
     def login(self):
         actual_usuario = self.account.obtener_usuario()
@@ -57,12 +61,14 @@ class Classes_Unsaac():
         self.classes.element.click()
 
         # esperar actualizacion de pagina
-        sleep(2)
+        sleep(3)
 
         # ingresar contraseña
         search = '//input[@type="password"]'
         self.element_found(search)
-        self.classes.element.send_keys(Encrp_class.desencriptar(actual_usuario[1], actual_usuario[2]))
+        sleep(1)
+        contraseña = Encrp_class.desencriptar(actual_usuario[1], actual_usuario[2])
+        self.classes.element.send_keys(contraseña)
         
         # click button siguiente
         search = '//button[@jsname="LgbsSe"]'
@@ -73,7 +79,7 @@ class Classes_Unsaac():
 
     def obtener_horario(self):
         # obtener elementos del dia actual
-        search = '//div[@class="YvjgZe F262Ye"]'
+        search = '//div[contains(@class,"F262Ye") and contains(@class,"YvjgZe")]'
         self.element_found(search)
         
         # obtener horarios, cursos (div)
