@@ -25,6 +25,7 @@ class Classes_Unsaac():
         if(not self.my_schedule.json_listo()):
             # obtener horarios
             # Ingresar calendario
+            self.classes.open_browser()
             self.classes.open_url(self.calendar_url)
             if(not self.login()):
                 return 0
@@ -36,7 +37,7 @@ class Classes_Unsaac():
             if(not self.obtener_horario()):
                 return 0
             
-            self.cerrar_browser()
+            self.classes.close_browser()
             
         self.limpiar_terminal()
         # imprimir horarios
@@ -102,22 +103,42 @@ class Classes_Unsaac():
             self.limpiar_terminal()
             if(self.my_schedule.is_active):
                 print(" El curso está abierto, quedan {0} minutos para finalizar\n".format(self.my_schedule.tiempo_restante()))
-                #self.classes.open_url(meet_link)
             else:
                 print(" Falta {0} minutos para iniciar el curso\n".format(self.my_schedule.tiempo_libre()))
 
-            meet_link = self.my_schedule.iniciar_curso()
-                
+            self.meet_url = self.my_schedule.iniciar_curso()
+            self.abrir_clase()
         
         if(not self.my_schedule.hay_cursos()):
             print("\n Felicidades, ya no tiene más cursos\n")
-            
+    
+    def abrir_clase(self):
+        self.classes.open_browser()
+        self.classes.open_url(self.calendar_url)
+        self.login()
+        self.classes.new_window()
+        sleep(3)
+        self.classes.open_url(self.meet_url)
+        self.entrar_a_clase()
+        print(" Ingreso a clase exitoso :)")
+    def entrar_a_clase(self):
+        # obtener elementos del dia actual
+        search = '//div[@class="EhAUAc"]'
+        self.element_found(search)
+        
+        # obtener horarios, cursos (div)
+        search = './/div[@role="button"]'
+        elements = self.classes.find_childs_by_xpath(search)
+        for elem in elements:
+            elem.click()
+        search = './/div[@jsname="Qx7uuf"]'
+        self.element_found(search)
+        self.classes.element.click()
+        
+
     def element_found(self, search):
         self.classes.element = None
         self.classes.find_element_by_xpath(search)
-        
-    def cerrar_browser(self):
-        self.classes.close_browser()
 
     def finalizar(self):
         print(" Adios...\n")

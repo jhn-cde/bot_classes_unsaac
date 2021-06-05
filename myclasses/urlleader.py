@@ -6,15 +6,23 @@ class UrlLeader():
         self.option = webdriver.ChromeOptions()
         self.option.binary_location = '/usr/bin/brave-browser-nightly'
         self.option.add_argument("--start-maximized")
+        #self.option.add_argument("use-fake-device-for-media-stream")
+        self.option.add_argument("use-fake-ui-for-media-stream")
         self.pageurl = ''
         self.browser = None
         self.element = None
 
-    def open_url(self, url):
+    def open_browser(self):
         self.browser = webdriver.Chrome(executable_path='./driver/chromedriver', options = self.option)
+    
+    def open_url(self, url):
         self.pageurl = url
         self.browser.get(self.pageurl)
-    
+    def new_window(self):
+        self.browser.execute_script("window.open()")
+        new_window = self.browser.window_handles[1]
+        self.browser.switch_to_window(new_window)
+
     def close_browser(self):
         self.browser.close()
 
