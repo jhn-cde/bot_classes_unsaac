@@ -1,6 +1,5 @@
 import json
-import random
-
+from .encrp import Encrp_class
 class Usuario():
     def __init__(self):
         self.__user = []
@@ -28,22 +27,3 @@ class Usuario():
     def obtener_usuario(self):
         user = [self.__user[0], self.__user[1], self.__user[2]]
         return user
-
-class Encrp_class():
-    def encriptar(strng):
-        llave = ''
-        strng_enc = ''
-        for c in strng:
-            num = random.randint(1,26)
-            llave = chr(num) + llave
-            strng_enc += chr(ord(c) + num)
-        return [strng_enc,llave]
-
-    def desencriptar(llave, strng_enc):
-        strng = ''
-        l = len(llave)
-        for c in strng_enc:
-            num = ord(llave[l - 1])
-            strng += chr(ord(c) - num)
-            l -= 1
-        return strng

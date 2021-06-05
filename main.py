@@ -5,6 +5,7 @@ from datetime import datetime
 from myclasses.urlleader import UrlLeader
 from myclasses.schedule import Schedule
 from myclasses.user import Usuario, Encrp_class
+from myclasses.encrp import Encrp_class
 
 class Classes_Unsaac():
     def __init__(self):
@@ -128,6 +129,7 @@ class Classes_Unsaac():
         print("\n Hola {}".format(self.account.obtener_usuario()[0]))
         print(" Hoy es: ", self.now.strftime("%d %B %Y  %H:%M:%S"))
 
+        
 if __name__ == "__main__":
     if(len(sys.argv) == 2 and sys.argv[1] == 'nuevo'):
         try: 
@@ -136,5 +138,14 @@ if __name__ == "__main__":
             print("Cambiando usuario")
         except FileNotFoundError:
             print("Nuevo Usuario")
+
+    try: 
+        open('user.txt')
+    except FileNotFoundError:
+        print("Error no existe usuario!")
+        try: 
+            os.remove('horario_de_hoy.txt')
+        except FileNotFoundError:
+            print("Error no existen horarios!")
         
     mis_horario_de_hoy = Classes_Unsaac()
