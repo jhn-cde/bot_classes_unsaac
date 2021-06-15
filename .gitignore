@@ -1,4 +1,5 @@
 myclasses/__pycache__
+driver/chromedriver
 driver/chromedriver.exe
 driver/geckodriver
 info/horario_de_hoy.txt
