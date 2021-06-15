@@ -25,7 +25,7 @@ git clone https://github.com/jhn-cde/bot_classes_unsaac.git
 # Go into the repository
 cd bot_classes_unsaac
 # Install libraries
-
+pip3 install selenium
 # Run the app
 python3 main.py
 ```
