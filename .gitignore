@@ -1,4 +1,5 @@
 myclasses/__pycache__
-driver/
-info/
-
+driver/chromedriver
+driver/geckodriver
+info/horario_de_hoy.txt
+info/user.txt
