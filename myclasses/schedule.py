@@ -1,5 +1,4 @@
 import json
-import locale
 from datetime import datetime
 
 # Idioma "es-ES" (código para el español de España)
@@ -7,11 +6,12 @@ from datetime import datetime
 #print(locale.locale_alias)
 
 class Schedule():
-    def __init__(self):
+    def __init__(self, cur_dir):
+        self.cur_dir = cur_dir
         self.cursos = None
         self.current = None
         self.is_active = False
-        self.json_file = 'horario_de_hoy.txt'
+        self.json_file = self.cur_dir + '/info/horario_de_hoy.txt'
         self.now = datetime.now()
 
     def set_cursos(self, cursos):

@@ -9,11 +9,12 @@ from myclasses.encrp import Encrp_class
 
 class Classes_Unsaac():
     def __init__(self):
+        self.cur_dir = os.path.dirname(os.path.realpath(__file__))
         self.calendar_url = 'https://calendar.google.com/calendar/'
         self.meet_url = ''
-        self.account = Usuario()
-        self.classes = UrlLeader()
-        self.my_schedule = Schedule()
+        self.account = Usuario(self.cur_dir)
+        self.classes = UrlLeader(self.cur_dir)
+        self.my_schedule = Schedule(self.cur_dir)
         self.now = datetime.now()
         self.iniciar()
         #self.procesar_clases()
@@ -153,6 +154,7 @@ class Classes_Unsaac():
         os.system('cls' if os.name == 'nt' else 'clear')
         # Saludo
         print(" Utilize 'python3 main.py nuevo' para cambiar de usuario!")
+        
         print("\n Hola {}".format(self.account.obtener_usuario()[0]))
         print(" Hoy es: ", self.now.strftime("%d %B %Y  %H:%M:%S"))
 
@@ -160,8 +162,8 @@ class Classes_Unsaac():
 if __name__ == "__main__":
     if(len(sys.argv) == 2 and sys.argv[1] == 'nuevo'):
         try: 
-            os.remove('user.txt')
-            os.remove('horario_de_hoy.txt')
+            os.remove('./info/user.txt')
+            os.remove('./info/horario_de_hoy.txt')
             print("Cambiando usuario")
         except FileNotFoundError:
             print("Nuevo Usuario")

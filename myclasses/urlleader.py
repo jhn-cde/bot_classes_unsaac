@@ -1,7 +1,8 @@
 from selenium import webdriver
 
 class UrlLeader():
-    def __init__(self):
+    def __init__(self, cur_dir):
+        self.cur_dir = cur_dir
         # create a headless browser
         self.option = webdriver.ChromeOptions()
         self.option.binary_location = '/usr/bin/brave-browser-nightly'
@@ -13,7 +14,7 @@ class UrlLeader():
         self.element = None
 
     def open_browser(self):
-        self.browser = webdriver.Chrome(executable_path='./driver/chromedriver', options = self.option)
+        self.browser = webdriver.Chrome(executable_path=self.cur_dir + '/driver/chromedriver', options = self.option)
     
     def open_url(self, url):
         self.pageurl = url

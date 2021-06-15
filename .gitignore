@@ -1,4 +1,6 @@
 horario_de_hoy.txt
 user.txt
 /myclasses/__pycache__
+/driver/chromedriver
+/driver/geckodriver
 

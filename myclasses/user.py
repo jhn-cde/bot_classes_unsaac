@@ -1,10 +1,12 @@
 import json
 from .encrp import Encrp_class
+
 class Usuario():
-    def __init__(self):
+    def __init__(self, cur_dir):
+        self.cur_dir = cur_dir
         self.__user = []
         self.logged = False
-        self.json_file = 'user.txt'
+        self.json_file = self.cur_dir + '/info/user.txt'
         self.json_init()
     def json_init(self):
         try: 
