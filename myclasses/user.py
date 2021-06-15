@@ -6,7 +6,7 @@ class Usuario():
         self.cur_dir = cur_dir
         self.__user = []
         self.logged = False
-        self.json_file = self.cur_dir + '/info/user.txt'
+        self.json_file = self.cur_dir + '/info/.user.txt'
         self.json_init()
     def json_init(self):
         try: 
