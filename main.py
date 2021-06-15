@@ -2,10 +2,10 @@ import os
 import sys
 from time import sleep
 from datetime import datetime
-from myclasses.urlleader import UrlLeader
-from myclasses.schedule import Schedule
-from myclasses.user import Usuario, Encrp_class
-from myclasses.encrp import Encrp_class
+from utils.urlleader import UrlLeader
+from utils.schedule import Schedule
+from utils.user import Usuario, Encrp_class
+from utils.encrp import Encrp_class
 
 class Classes_Unsaac():
     def __init__(self):
