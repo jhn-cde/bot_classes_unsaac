@@ -1,6 +1,3 @@
-info/horario_de_hoy.txt
-info/user.txt
 myclasses/__pycache__
-driver/chromedriver
-driver/geckodriver
+/driver/
 
